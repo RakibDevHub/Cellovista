@@ -1,40 +1,49 @@
 import { processSteps } from "@/lib/data";
+import Reveal from "./ui/Reveal";
 
 export default function Process() {
   return (
-    <section id="process" className="scroll-mt-24 bg-slate-50 py-24">
+    <section id="process" className="scroll-mt-24 bg-cream py-24">
       <div className="mx-auto max-w-6xl px-6">
-        <header className="mx-auto mb-16 max-w-2xl text-center">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-accent">
-            How It Works
-          </p>
-          <h2 className="text-balance text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-            Your Journey to Overseas Employment
+        <Reveal className="mx-auto mb-16 max-w-2xl text-center">
+          <p className="eyebrow">How It Works</p>
+          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            A Clear, Four-Step Process
           </h2>
           <p className="mt-4 text-slate-600">
-            A simple, transparent process designed to get you working abroad as
-            quickly as possible.
+            Designed to get you working abroad as quickly and transparently as
+            possible.
           </p>
-        </header>
+        </Reveal>
 
-        <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {processSteps.map((step, i) => (
-            <li
-              key={step.title}
-              className="relative rounded-2xl bg-white p-8 pt-10 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5"
-            >
-              <span className="absolute -top-4 left-1/2 grid h-9 w-9 -translate-x-1/2 place-items-center rounded-full border-[3px] border-slate-50 bg-brand text-sm font-bold text-white">
-                {i + 1}
-              </span>
-              <h3 className="mt-2 text-base font-bold text-slate-900">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                {step.description}
-              </p>
-            </li>
-          ))}
-        </ol>
+        <div className="relative">
+          <div
+            aria-hidden
+            className="absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent lg:block"
+            style={{ marginInline: "calc(12.5% + 24px)" }}
+          />
+
+          <ol className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+            {processSteps.map((step, i) => (
+              <li key={step.title}>
+                <Reveal delay={i * 100}>
+                  <div className="flex flex-col items-center text-center">
+                    <div className="relative z-10 grid h-12 w-12 place-items-center rounded-full border-2 border-accent bg-white text-sm font-bold text-brand">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+
+                    <h3 className="mt-6 text-base font-bold text-slate-900">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 max-w-[240px] text-sm leading-relaxed text-slate-600">
+                      {step.description}
+                    </p>
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );

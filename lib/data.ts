@@ -22,6 +22,8 @@ export const CONTACT = {
     address:
         "H-80/1C, 5th Floor, Sainik Club More, Bir Uttam Ziaur Rahman Sarak, Banani, Dhaka-1213",
     facebook: "https://www.facebook.com/profile.php?id=100063520000931",
+    mapUrl:
+        "https://www.google.com/maps/search/?api=1&query=Banani%2C+Dhaka+1213",
 };
 
 export const WHATSAPP_MESSAGE = encodeURIComponent(

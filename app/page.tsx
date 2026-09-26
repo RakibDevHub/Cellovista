@@ -11,6 +11,7 @@ import DownloadProfile from "@/components/DownloadProfile";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import FloatingSocial from "@/components/FloatingSocial";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
       <DownloadProfile />
       <CTA />
       <Footer />
+      <ScrollToTop />
       <FloatingSocial />
     </main>
   );

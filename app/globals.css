@@ -2,32 +2,59 @@
 
 @theme {
   /* ===== Brand Colors ===== */
-  --color-brand: #0A3D62;
-  --color-brand-light: #1B5E8A;
-  --color-accent: #E8A93D;
-  --color-accent-hover: #D4952E;
+  --color-brand: #0a3d62;
+  --color-brand-dark: #05253f;
+  --color-brand-deeper: #031829;
+  --color-brand-light: #1b5e8a;
+  --color-accent: #c89b3c;
+  --color-accent-hover: #b38830;
+  --color-accent-soft: #e8c77a;
+
+  /* ===== Neutrals ===== */
+  --color-cream: #faf9f6;
+  --color-sand: #f2f0eb;
+  --color-line: #e5e3dd;
 
   /* ===== Fonts ===== */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 
-  /* ===== Custom Animation ===== */
-  --animate-fade-in: fade-in 0.3s ease-out;
-  --animate-ping-slow: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  /* ===== Animations ===== */
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-fade-in: fade-in 0.5s ease-out both;
+  --animate-scroll-cue: scroll-cue 2s ease-in-out infinite;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes ping-slow {
-  75%, 100% {
-    transform: scale(1.6);
+@keyframes fade-up {
+  from {
     opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
   }
 }
 
-/* ===== Base Layer ===== */
+/* ===== Base ===== */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -37,14 +64,28 @@
     font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
   ::selection {
     background-color: var(--color-brand);
     color: #ffffff;
   }
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
+  }
+  /* Keyboard focus — visible but never ugly */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 }
 
-/* ===== Custom Utilities ===== */
+/* ===== Utilities ===== */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -55,6 +96,50 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* Section label */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.5rem;
+    height: 1px;
+    background: var(--color-accent);
+  }
+  .eyebrow-center::before {
+    display: none;
+  }
+
+  /* Grid background */
+  .bg-grid {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgb(10 61 98 / 0.08) 1px,
+      transparent 0
+    );
+    background-size: 24px 24px;
+  }
+
+  /* Elegant divider */
+  .rule {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgb(10 61 98 / 0.15),
+      transparent
+    );
+  }
+
+  /* Scrollbar */
   .scrollbar-thin::-webkit-scrollbar {
     width: 6px;
   }
@@ -62,7 +147,40 @@
     background: transparent;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: rgb(10 61 98 / 0.3);
+    background: rgb(10 61 98 / 0.25);
     border-radius: 3px;
+  }
+
+  /* Animated link underline (nav) */
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1.5px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .link-underline:hover::after,
+  .link-underline[data-active="true"]::after {
+    transform: scaleX(1);
+  }
+}
+
+.hero-parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+@media (max-width: 1024px) {
+  .hero-parallax {
+    background-attachment: scroll;
   }
 }
